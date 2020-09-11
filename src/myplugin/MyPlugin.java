@@ -16,6 +16,7 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
 	
 	String pluginDir = null;
 	public static final String GEN_DIR = "c:/temp/mbrs/src/main/java";
+	public static  final  String DirName="c:/mbrs/src/main/resources";
 	
 	public void init() {
 		JOptionPane.showMessageDialog( null, "My Plugin init");
@@ -29,12 +30,16 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
 		/** @Todo: load project options (@see myplugin.generator.options.ProjectOptions) from 
 		 * ProjectOptions.xml and take ejb generator options */
 
-		modelOptions();
+		//modelOptions();
+		//repositoryOptions();
 		//for test purpose only:
 		GeneratorOptions ejbOptions = new GeneratorOptions("c:/temp", "ejbclass", "templates", "{0}.java", true, "ejb");
 		ProjectOptions.getProjectOptions().getGeneratorOptions().put("EJBGenerator", ejbOptions);
 
 		ejbOptions.setTemplateDir(pluginDir + File.separator + ejbOptions.getTemplateDir()); //apsolutna putanja
+		repositoryOptions();
+		pomOptions();
+		appPropOptions();
 	}
 
 	private void modelOptions() {
@@ -42,6 +47,26 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
 		ProjectOptions.getProjectOptions().getGeneratorOptions().put("ModelGenerator", generatorOptions);
 		generatorOptions.setTemplateDir(pluginDir + File.separator + generatorOptions.getTemplateDir());
 	}
+
+	private void repositoryOptions() {
+		GeneratorOptions generatorOptions = new GeneratorOptions("c:/temp", "repository", "templates", "{0}Repository.java", true, "uns.ftn.mbrs.repository");
+		ProjectOptions.getProjectOptions().getGeneratorOptions().put("RepoGenerator", generatorOptions);
+		generatorOptions.setTemplateDir(pluginDir + File.separator + generatorOptions.getTemplateDir());
+	}
+
+	private  void  pomOptions(){
+		GeneratorOptions generatorOptions = new GeneratorOptions("c:/temp", "pom", "templates", "pom.xml", true, "uns.ftn.mbrs.pom");
+		ProjectOptions.getProjectOptions().getGeneratorOptions().put("PomGenerator", generatorOptions);
+		generatorOptions.setTemplateDir(pluginDir + File.separator + generatorOptions.getTemplateDir());
+	}
+
+	private  void  appPropOptions(){
+		GeneratorOptions generatorOptions = new GeneratorOptions(DirName, "applicationproperties", "templates", "application.properties.xml", true, "");
+		ProjectOptions.getProjectOptions().getGeneratorOptions().put("AppPropertiesGenerator", generatorOptions);
+		generatorOptions.setTemplateDir(pluginDir + File.separator + generatorOptions.getTemplateDir());
+	}
+
+
 
 	private NMAction[] getSubmenuActions()
 	{
