@@ -82,13 +82,13 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
         return true;
     }
 	private void repositoryOptions() {
-		GeneratorOptions generatorOptions = new GeneratorOptions("c:/temp", "repository", "templates", "{0}Repository.java", true, "uns.ftn.mbrs.repository");
+		GeneratorOptions generatorOptions = new GeneratorOptions(GEN_DIR, "repository", "templates", "{0}Repository.java", true, "uns.ftn.mbrs.repository");
 		ProjectOptions.getProjectOptions().getGeneratorOptions().put("RepoGenerator", generatorOptions);
 		generatorOptions.setTemplateDir(pluginDir + File.separator + generatorOptions.getTemplateDir());
 	}
 
 	private  void  pomOptions(){
-		GeneratorOptions generatorOptions = new GeneratorOptions("c:/temp", "pom", "templates", "pom.xml", true, "uns.ftn.mbrs.pom");
+		GeneratorOptions generatorOptions = new GeneratorOptions("c:/mbrs", "pom", "templates", "pom.xml", true, "");
 		ProjectOptions.getProjectOptions().getGeneratorOptions().put("PomGenerator", generatorOptions);
 		generatorOptions.setTemplateDir(pluginDir + File.separator + generatorOptions.getTemplateDir());
 	}

@@ -141,21 +141,17 @@ class GenerateAction extends MDAction {
 		 GeneratorOptions generatorOptions = ProjectOptions.getProjectOptions().getGeneratorOptions().get("RepoGenerator");
 		RepoGenerator repositoryGenerator = new RepoGenerator(generatorOptions);
 		repositoryGenerator.generate();
-		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: "
-				+ generatorOptions.getOutputPath() + ", package: " + generatorOptions.getFilePackage());
-		exportToXml();
+
 	}
 
 	private void generatePom( Package root)
 			throws AnalyzeException {
-		ModelAnalyzer analyzer = new ModelAnalyzer(root,"uns.ftn.mbrs.pom");
+		ModelAnalyzer analyzer = new ModelAnalyzer(root,"");
 		analyzer.prepareModel();
 		GeneratorOptions generatorOptions = ProjectOptions.getProjectOptions().getGeneratorOptions().get("PomGenerator");
 		PomGenerator pomGenerator = new PomGenerator(generatorOptions);
 		pomGenerator.generate();
-		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: "
-				+ generatorOptions.getOutputPath() + ", package: " + generatorOptions.getFilePackage());
-		exportToXml();
+
 	}
 
 	private void generateAppProperties( Package root)
@@ -165,9 +161,7 @@ class GenerateAction extends MDAction {
 		GeneratorOptions generatorOptions = ProjectOptions.getProjectOptions().getGeneratorOptions().get("AppPropertiesGenerator");
 		AppPropertiesGenerator repositoryGenerator = new AppPropertiesGenerator(generatorOptions);
 		repositoryGenerator.generate();
-		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: "
-				+ generatorOptions.getOutputPath() + ", package: " + generatorOptions.getFilePackage());
-		exportToXml();
+
 	}
 
 }

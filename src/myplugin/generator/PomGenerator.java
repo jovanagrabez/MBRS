@@ -24,7 +24,7 @@ public class PomGenerator extends BasicGenerator{
     public void generate() {
 
         String pom= "pom";
-        String typePack="uns.ftn.mbrs.pom";
+        String typePack="";
 
         try {
             super.generate();
@@ -39,7 +39,6 @@ public class PomGenerator extends BasicGenerator{
             if (out != null) {
                 context.clear();
                 context.put("project_name", Application.getInstance().getProject().getName());
-                System.out.println(Application.getInstance().getProject().getName());
                 getTemplate().process(context, out);
                 out.flush();
             }
