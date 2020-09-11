@@ -8,6 +8,10 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 import myplugin.analyzer.AnalyzeException;
 import myplugin.analyzer.ModelAnalyzer;
 import myplugin.generator.*;
+import myplugin.generator.AppPropertiesGenerator;
+import myplugin.generator.EJBGenerator;
+import myplugin.generator.PomGenerator;
+import myplugin.generator.RepoGenerator;
 import myplugin.generator.fmmodel.FMModel;
 import myplugin.generator.options.GeneratorOptions;
 import myplugin.generator.options.ProjectOptions;
@@ -44,8 +48,10 @@ class GenerateAction extends MDAction {
             JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: c:/mbrs" );
             exportToXml();
 
-
-
+			//generate repository
+			generateRepository(root);
+			generatePom( root);
+			generateAppProperties(root);
 
         } catch (AnalyzeException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
@@ -126,5 +132,42 @@ class GenerateAction extends MDAction {
         mainGenerator.generate();
 
     }
+
+
+	private void generateRepository( Package root)
+			throws AnalyzeException {
+		ModelAnalyzer analyzer = new ModelAnalyzer(root,"uns.ftn.mbrs.repository");
+		analyzer.prepareModel();
+		 GeneratorOptions generatorOptions = ProjectOptions.getProjectOptions().getGeneratorOptions().get("RepoGenerator");
+		RepoGenerator repositoryGenerator = new RepoGenerator(generatorOptions);
+		repositoryGenerator.generate();
+		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: "
+				+ generatorOptions.getOutputPath() + ", package: " + generatorOptions.getFilePackage());
+		exportToXml();
+	}
+
+	private void generatePom( Package root)
+			throws AnalyzeException {
+		ModelAnalyzer analyzer = new ModelAnalyzer(root,"uns.ftn.mbrs.pom");
+		analyzer.prepareModel();
+		GeneratorOptions generatorOptions = ProjectOptions.getProjectOptions().getGeneratorOptions().get("PomGenerator");
+		PomGenerator pomGenerator = new PomGenerator(generatorOptions);
+		pomGenerator.generate();
+		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: "
+				+ generatorOptions.getOutputPath() + ", package: " + generatorOptions.getFilePackage());
+		exportToXml();
+	}
+
+	private void generateAppProperties( Package root)
+			throws AnalyzeException {
+		ModelAnalyzer analyzer = new ModelAnalyzer(root,"");
+		analyzer.prepareModel();
+		GeneratorOptions generatorOptions = ProjectOptions.getProjectOptions().getGeneratorOptions().get("AppPropertiesGenerator");
+		AppPropertiesGenerator repositoryGenerator = new AppPropertiesGenerator(generatorOptions);
+		repositoryGenerator.generate();
+		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: "
+				+ generatorOptions.getOutputPath() + ", package: " + generatorOptions.getFilePackage());
+		exportToXml();
+	}
 
 }
