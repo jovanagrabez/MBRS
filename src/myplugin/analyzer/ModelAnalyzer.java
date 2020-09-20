@@ -69,6 +69,7 @@ public class ModelAnalyzer {
                 if (ownedElement instanceof Class) {
                     Class cl = (Class) ownedElement;
                     FMClass fmClass = getClassData(cl, packageName);
+                    fmClass.setName(fmClass.getName().replaceAll(" ", ""));
                     FMModel.getInstance().getClasses().add(fmClass);
                 }
 
@@ -105,11 +106,12 @@ public class ModelAnalyzer {
 
             if (p.getOpposite() != null) {
                 FMLinkedProperty linkedProperty = getLinkedPropertyData(p, cl);
+                linkedProperty.setName(linkedProperty.getName().replace(" ", ""));
                 fmClass.addLinkedProperty(linkedProperty);
             } else {
                 FMProperty prop = getPropertyData(p, cl);
+                prop.setName(prop.getName().replace(" ", ""));
                 fmClass.addProperty(prop);
-
             }
 
         }

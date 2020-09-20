@@ -1,4 +1,4 @@
-package ${class.typePackage}.services;
+package ${class.typePackage};
 
 import java.util.Optional;
 import java.util.List;
@@ -7,16 +7,15 @@ import uns.ftn.mbrs.model.*;
 import org.springframework.stereotype.Service;
 
 @Service
-public interface ${class.name}Service{
+public interface ${class.name}Service {
 
+    List <${class.name}> getAll();
 
-List <${class.name}> getAll();
+    Optional < ${class.name} > getOne(Integer id);
 
-Optional < ${class.name} > getOne(Long id);
+    void update(${class.name} ${class.name?lower_case});
 
-void update(${class.name} ${class.name?lower_case});
+    void create(${class.name} ${class.name?lower_case});
 
-void add(${class.name} ${class.name?lower_case});
-
-void delete(Long id);
-
+    void delete(Integer id);
+}

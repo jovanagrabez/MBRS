@@ -18,7 +18,7 @@ public class AppPropertiesGenerator extends BasicGenerator{
 
     public void generate() {
 
-        String applicationproperties = "application.properties";
+        String applicationproperties = "application.yml";
         String typePackappprop = "";
 
         try {

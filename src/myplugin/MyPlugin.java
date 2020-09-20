@@ -15,7 +15,8 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
 
     String pluginDir = null;
     public static final String GEN_DIR = "c:/mbrs/src/main/java";
-    public static  final  String DirName="c:/mbrs/src/main/resources";
+    public static final String PROTO_DIR = "c:/mbrs/src/main/proto";
+    public static final String DirName = "c:/mbrs/src/main/resources";
 
     public void init() {
         JOptionPane.showMessageDialog(null, "My Plugin init");
@@ -29,11 +30,14 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
         modelOptions();
         controllerOptions();
         serviceOptions();
+        grpcServiceOptions();
         serviceImplOptions();
         mainOptions();
         repositoryOptions();
-		pomOptions();
-		appPropOptions();
+        pomOptions();
+        appPropOptions();
+
+        protoOptions();
     }
 
     private void modelOptions() {
@@ -48,12 +52,23 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
         generatorOptions.setTemplateDir(pluginDir + File.separator + generatorOptions.getTemplateDir());
     }
 
+    private void protoOptions() {
+        GeneratorOptions generatorOptions = new GeneratorOptions(PROTO_DIR, "proto", "templates", "default.proto", true, "");
+        ProjectOptions.getProjectOptions().getGeneratorOptions().put("ProtoGenerator", generatorOptions);
+        generatorOptions.setTemplateDir(pluginDir + File.separator + generatorOptions.getTemplateDir());
+    }
+
     private void serviceOptions() {
         GeneratorOptions generatorOptions = new GeneratorOptions(GEN_DIR, "service", "templates", "{0}Service.java", true, "uns.ftn.mbrs.service");
         ProjectOptions.getProjectOptions().getGeneratorOptions().put("ServiceGenerator", generatorOptions);
         generatorOptions.setTemplateDir(pluginDir + File.separator + generatorOptions.getTemplateDir());
     }
 
+    private void grpcServiceOptions() {
+        GeneratorOptions generatorOptions = new GeneratorOptions(GEN_DIR, "grpcService", "templates", "{0}GrpcService.java", true, "uns.ftn.mbrs.grpc.service");
+        ProjectOptions.getProjectOptions().getGeneratorOptions().put("GrpcServiceGenerator", generatorOptions);
+        generatorOptions.setTemplateDir(pluginDir + File.separator + generatorOptions.getTemplateDir());
+    }
 
     private void serviceImplOptions() {
         GeneratorOptions generatorOptions = new GeneratorOptions(GEN_DIR, "serviceImpl", "templates", "{0}ServiceImpl.java", true, "uns.ftn.mbrs.service.impl");
@@ -81,26 +96,24 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
     public boolean isSupported() {
         return true;
     }
-	private void repositoryOptions() {
-		GeneratorOptions generatorOptions = new GeneratorOptions(GEN_DIR, "repository", "templates", "{0}Repository.java", true, "uns.ftn.mbrs.repository");
-		ProjectOptions.getProjectOptions().getGeneratorOptions().put("RepoGenerator", generatorOptions);
-		generatorOptions.setTemplateDir(pluginDir + File.separator + generatorOptions.getTemplateDir());
-	}
 
-	private  void  pomOptions(){
-		GeneratorOptions generatorOptions = new GeneratorOptions("c:/mbrs", "pom", "templates", "pom.xml", true, "");
-		ProjectOptions.getProjectOptions().getGeneratorOptions().put("PomGenerator", generatorOptions);
-		generatorOptions.setTemplateDir(pluginDir + File.separator + generatorOptions.getTemplateDir());
-	}
+    private void repositoryOptions() {
+        GeneratorOptions generatorOptions = new GeneratorOptions(GEN_DIR, "repository", "templates", "{0}Repository.java", true, "uns.ftn.mbrs.repository");
+        ProjectOptions.getProjectOptions().getGeneratorOptions().put("RepoGenerator", generatorOptions);
+        generatorOptions.setTemplateDir(pluginDir + File.separator + generatorOptions.getTemplateDir());
+    }
 
-	private  void  appPropOptions(){
-		GeneratorOptions generatorOptions = new GeneratorOptions(DirName, "applicationproperties", "templates", "application.properties.xml", true, "");
-		ProjectOptions.getProjectOptions().getGeneratorOptions().put("AppPropertiesGenerator", generatorOptions);
-		generatorOptions.setTemplateDir(pluginDir + File.separator + generatorOptions.getTemplateDir());
-	}
+    private void pomOptions() {
+        GeneratorOptions generatorOptions = new GeneratorOptions("c:/mbrs", "pom", "templates", "pom.xml", true, "");
+        ProjectOptions.getProjectOptions().getGeneratorOptions().put("PomGenerator", generatorOptions);
+        generatorOptions.setTemplateDir(pluginDir + File.separator + generatorOptions.getTemplateDir());
+    }
 
-
-
+    private void appPropOptions() {
+        GeneratorOptions generatorOptions = new GeneratorOptions(DirName, "applicationproperties", "templates", "application.yml", true, "");
+        ProjectOptions.getProjectOptions().getGeneratorOptions().put("AppPropertiesGenerator", generatorOptions);
+        generatorOptions.setTemplateDir(pluginDir + File.separator + generatorOptions.getTemplateDir());
+    }
 
 }
 

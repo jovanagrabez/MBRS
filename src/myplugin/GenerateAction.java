@@ -42,6 +42,7 @@ class GenerateAction extends MDAction {
             generateModel(root);
             generateController(root);
             generateService(root);
+            generateGrpcService(root);
             generateServiceImpl(root);
             generateMain(root);
 
@@ -52,6 +53,8 @@ class GenerateAction extends MDAction {
 			generateRepository(root);
 			generatePom( root);
 			generateAppProperties(root);
+
+            generateProto(root);
 
         } catch (AnalyzeException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
@@ -101,6 +104,13 @@ class GenerateAction extends MDAction {
         controllerGenerator.generate();
     }
 
+    private void generateProto(Package root) throws  AnalyzeException {
+        ModelAnalyzer analyzer = new ModelAnalyzer(root, "uns.ftn.mbrs.controller");
+        analyzer.prepareModel();
+        GeneratorOptions generatorOptions = ProjectOptions.getProjectOptions().getGeneratorOptions().get("ProtoGenerator");
+        ProtoGenerator controllerGenerator = new ProtoGenerator(generatorOptions);
+        controllerGenerator.generate();
+    }
 
     private void generateService(Package root)
             throws AnalyzeException {
@@ -108,6 +118,16 @@ class GenerateAction extends MDAction {
         analyzer.prepareModel();
         GeneratorOptions generatorOptions = ProjectOptions.getProjectOptions().getGeneratorOptions().get("ServiceGenerator");
         ServiceGenerator serviceGenerator = new ServiceGenerator(generatorOptions);
+        serviceGenerator.generate();
+
+    }
+
+    private void generateGrpcService(Package root)
+            throws AnalyzeException {
+        ModelAnalyzer analyzer = new ModelAnalyzer(root, "uns.ftn.mbrs.grpc.service");
+        analyzer.prepareModel();
+        GeneratorOptions generatorOptions = ProjectOptions.getProjectOptions().getGeneratorOptions().get("GrpcServiceGenerator");
+        GrpcServiceGenerator serviceGenerator = new GrpcServiceGenerator(generatorOptions);
         serviceGenerator.generate();
 
     }

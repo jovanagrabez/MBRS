@@ -1,17 +1,17 @@
 package ${class.typePackage};
 import java.util.*;
 
-
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import uns.ftn.mbrs.model.*;
 
-import uns.ftn.mbrs.service.${class.name}Service;
+import uns.ftn.mbrs.service.BankService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
-
+import javax.validation.Valid;
+import uns.ftn.mbrs.service.*;
 
 
 @Controller
@@ -29,15 +29,13 @@ return "${class.name?lower_case}";
 }
 
 @RequestMapping(value = "/one${class.name}", method = RequestMethod.GET)
-public String getOne${class.name}(@RequestParam Long id) {
+public String getOne${class.name}(@RequestParam Integer id) {
 ${class.name?lower_case}Service.getOne(id);
 return "redirect:/${class.name?lower_case}";
 }
 
-
-
 @RequestMapping(value = "/delete${class.name}", method = RequestMethod.GET)
-public String delete${class.name}(@RequestParam Long id) {
+public String delete${class.name}(@RequestParam Integer id) {
 ${class.name?lower_case}Service.delete(id);
 return "redirect:/${class.name?lower_case}";
 }
@@ -53,14 +51,14 @@ return "redirect:/${class.name?lower_case}";
 }
 
 
-@RequestMapping(value = "/add${class.name}", method = RequestMethod.POST)
-public String add${class.name}(ModelMap model, @Valid ${class.name} ${class.name?lower_case}, BindingResult result) {
+@RequestMapping(value = "/create${class.name}", method = RequestMethod.POST)
+public String create${class.name}(ModelMap model, @Valid ${class.name} ${class.name?lower_case}, BindingResult result) {
 
 if (result.hasErrors()) {
 return "todo";
 }
 
-${class.name?lower_case}Service.add(${class.name?lower_case});
+${class.name?lower_case}Service.create(${class.name?lower_case});
 return "redirect:/${class.name?lower_case}";
 }
 

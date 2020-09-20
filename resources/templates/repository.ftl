@@ -5,12 +5,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Date;
-import ejb.*;
-
-import ejb.${class.name};
-
+import uns.ftn.mbrs.model.*;
 
 @Repository
-public interface ${class.name}Repository extends JpaRepository<${class.name}, Long> {
+public interface ${class.name}Repository extends JpaRepository<${class.name}, Integer> {
 
 }
