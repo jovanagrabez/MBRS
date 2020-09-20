@@ -15,7 +15,7 @@
     <script type="text/javascript" charset="utf8" src="${datatables_js}"></script>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-dark navbar-expand-lg bg-dark mb-3">
     <a class="navbar-brand font-weight-bold" href="/">${app_name}</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">

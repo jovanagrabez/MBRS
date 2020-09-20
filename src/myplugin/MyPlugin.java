@@ -43,6 +43,8 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
         jspNavbarOptions();
         jspDetailsOptions();
         jspFormOptions();
+        landingPageOptions();
+        landingPageControllerOptions();
         protoOptions();
         jspOverviewOptions();
     }
@@ -56,6 +58,12 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
     private void controllerOptions() {
         GeneratorOptions generatorOptions = new GeneratorOptions(GEN_DIR, "controller", TEMPLATE_DIRECTORY_NAME, "{0}Controller.java", true, "uns.ftn.mbrs.controller");
         ProjectOptions.getProjectOptions().getGeneratorOptions().put("ControllerGenerator", generatorOptions);
+        generatorOptions.setTemplateDir(pluginDir + File.separator + generatorOptions.getTemplateDir());
+    }
+
+    private void landingPageControllerOptions() {
+        GeneratorOptions generatorOptions = new GeneratorOptions(GEN_DIR, "landingPageController", TEMPLATE_DIRECTORY_NAME, "LandingPageController.java", true, "uns.ftn.mbrs.controller");
+        ProjectOptions.getProjectOptions().getGeneratorOptions().put("LandingPageControllerGenerator", generatorOptions);
         generatorOptions.setTemplateDir(pluginDir + File.separator + generatorOptions.getTemplateDir());
     }
 
@@ -98,6 +106,12 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
     private void jspOverviewOptions() {
         GeneratorOptions generatorOptions = new GeneratorOptions(WEBAPP_DIR, "entityOverview", TEMPLATE_DIRECTORY_NAME, "{0}Overview.jsp", true, "");
         ProjectOptions.getProjectOptions().getGeneratorOptions().put("JspOverviewGenerator", generatorOptions);
+        generatorOptions.setTemplateDir(pluginDir + File.separator + generatorOptions.getTemplateDir());
+    }
+
+    private void landingPageOptions() {
+        GeneratorOptions generatorOptions = new GeneratorOptions(WEBAPP_DIR, "landingPage", TEMPLATE_DIRECTORY_NAME, "landingPage.jsp", true, "");
+        ProjectOptions.getProjectOptions().getGeneratorOptions().put("LandingPageGenerator", generatorOptions);
         generatorOptions.setTemplateDir(pluginDir + File.separator + generatorOptions.getTemplateDir());
     }
 

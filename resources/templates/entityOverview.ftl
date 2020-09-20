@@ -22,14 +22,15 @@
         );
     } );
 </script>
-<div class="container">
+<div class="container mt-3">
     <h5 class="text-center">List of ${class_name_plural}</h5>
     <div>
-        <a class="btn btn-outline-primary btn-sm float-right mb-3" href="<c:url value="/${u.plural(class_name?lower_case)}/new/"/>">Add new ${class_name?cap_first}</a>
+        <a class="btn btn-primary btn-sm float-right mb-3" href="<c:url value="/${u.plural
+        (class_name?lower_case)}/new/"/>">Create new ${class_name?cap_first}</a>
     </div>
     <div>
         <table id="table_id" class="table table-sm table-hover table-bordered text-center mt-3">
-            <thead>
+            <thead class="bg-light">
             <tr>
                 <#list properties as property>
                     <th>${property.name?cap_first}</th>

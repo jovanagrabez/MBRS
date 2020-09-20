@@ -51,6 +51,8 @@ class GenerateAction extends MDAction {
             generateRepository(root);
             generatePom(root);
             generateAppProperties(root);
+            generateLandingPage(root);
+            generateLandingPageController(root);
 
             generateProto(root);
 
@@ -153,6 +155,22 @@ class GenerateAction extends MDAction {
         GeneratorOptions generatorOptions = ProjectOptions.getProjectOptions().getGeneratorOptions().get("JspOverviewGenerator");
         JspOverviewGenerator jspOverviewGenerator = new JspOverviewGenerator(generatorOptions);
         jspOverviewGenerator.generate();
+    }
+
+    private void generateLandingPage(Package root) throws AnalyzeException {
+        ModelAnalyzer analyzer = new ModelAnalyzer(root, ROOT_FILE_PACKAGE);
+        analyzer.prepareModel();
+        GeneratorOptions generatorOptions = ProjectOptions.getProjectOptions().getGeneratorOptions().get("LandingPageGenerator");
+        LandingPageGenerator landingPageGenerator = new LandingPageGenerator(generatorOptions);
+        landingPageGenerator.generate();
+    }
+
+    private void generateLandingPageController(Package root) throws AnalyzeException {
+        ModelAnalyzer analyzer = new ModelAnalyzer(root, "uns.ftn.mbrs.controller");
+        analyzer.prepareModel();
+        GeneratorOptions generatorOptions = ProjectOptions.getProjectOptions().getGeneratorOptions().get("LandingPageControllerGenerator");
+        LandingPageControllerGenerator landingPageControllerGenerator = new LandingPageControllerGenerator(generatorOptions);
+        landingPageControllerGenerator.generate();
     }
 
     private void generateJspDetails(Package root) throws AnalyzeException {
