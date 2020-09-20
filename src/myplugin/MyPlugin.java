@@ -13,8 +13,12 @@ import java.io.File;
  */
 public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
 
-    String pluginDir = null;
-    public static final String GEN_DIR = "c:/mbrs/src/main/java";
+    private String pluginDir = null;
+    private static final String TEMPLATE_DIRECTORY_NAME = "templates";
+    private static final String SOURCE_MAIN = "c:/mbrs/src/main";
+    private static final String GEN_DIR = SOURCE_MAIN + "/java";
+    private static final String RESOURCE_DIR = SOURCE_MAIN + "/resources";
+    private static final String WEBAPP_DIR = SOURCE_MAIN + "/webapp";
     public static final String PROTO_DIR = "c:/mbrs/src/main/proto";
     public static final String DirName = "c:/mbrs/src/main/resources";
 
@@ -36,18 +40,21 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
         repositoryOptions();
         pomOptions();
         appPropOptions();
-
+        jspNavbarOptions();
+        jspDetailsOptions();
+        jspFormOptions();
         protoOptions();
+        jspOverviewOptions();
     }
 
     private void modelOptions() {
-        GeneratorOptions generatorOptions = new GeneratorOptions(GEN_DIR, "ejbclass", "templates", "{0}.java", true, "uns.ftn.mbrs.model");
+        GeneratorOptions generatorOptions = new GeneratorOptions(GEN_DIR, "ejbclass", TEMPLATE_DIRECTORY_NAME, "{0}.java", true, "uns.ftn.mbrs.model");
         ProjectOptions.getProjectOptions().getGeneratorOptions().put("EJBGenerator", generatorOptions);
         generatorOptions.setTemplateDir(pluginDir + File.separator + generatorOptions.getTemplateDir());
     }
 
     private void controllerOptions() {
-        GeneratorOptions generatorOptions = new GeneratorOptions(GEN_DIR, "controller", "templates", "{0}Controller.java", true, "uns.ftn.mbrs.controller");
+        GeneratorOptions generatorOptions = new GeneratorOptions(GEN_DIR, "controller", TEMPLATE_DIRECTORY_NAME, "{0}Controller.java", true, "uns.ftn.mbrs.controller");
         ProjectOptions.getProjectOptions().getGeneratorOptions().put("ControllerGenerator", generatorOptions);
         generatorOptions.setTemplateDir(pluginDir + File.separator + generatorOptions.getTemplateDir());
     }
@@ -59,7 +66,7 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
     }
 
     private void serviceOptions() {
-        GeneratorOptions generatorOptions = new GeneratorOptions(GEN_DIR, "service", "templates", "{0}Service.java", true, "uns.ftn.mbrs.service");
+        GeneratorOptions generatorOptions = new GeneratorOptions(GEN_DIR, "service", TEMPLATE_DIRECTORY_NAME, "{0}Service.java", true, "uns.ftn.mbrs.service");
         ProjectOptions.getProjectOptions().getGeneratorOptions().put("ServiceGenerator", generatorOptions);
         generatorOptions.setTemplateDir(pluginDir + File.separator + generatorOptions.getTemplateDir());
     }
@@ -71,14 +78,38 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
     }
 
     private void serviceImplOptions() {
-        GeneratorOptions generatorOptions = new GeneratorOptions(GEN_DIR, "serviceImpl", "templates", "{0}ServiceImpl.java", true, "uns.ftn.mbrs.service.impl");
+        GeneratorOptions generatorOptions = new GeneratorOptions(GEN_DIR, "serviceImpl", TEMPLATE_DIRECTORY_NAME, "{0}ServiceImpl.java", true, "uns.ftn.mbrs.service.impl");
         ProjectOptions.getProjectOptions().getGeneratorOptions().put("ServiceImplGenerator", generatorOptions);
         generatorOptions.setTemplateDir(pluginDir + File.separator + generatorOptions.getTemplateDir());
     }
 
     private void mainOptions() {
-        GeneratorOptions generatorOptions = new GeneratorOptions(GEN_DIR, "main", "templates", "{0}.java", true, "uns.ftn.mbrs");
+        GeneratorOptions generatorOptions = new GeneratorOptions(GEN_DIR, "main", TEMPLATE_DIRECTORY_NAME, "{0}.java", true, "uns.ftn.mbrs");
         ProjectOptions.getProjectOptions().getGeneratorOptions().put("MainGenerator", generatorOptions);
+        generatorOptions.setTemplateDir(pluginDir + File.separator + generatorOptions.getTemplateDir());
+    }
+
+    private void jspNavbarOptions() {
+        GeneratorOptions generatorOptions = new GeneratorOptions(WEBAPP_DIR, "navbar", TEMPLATE_DIRECTORY_NAME, "navbar.jsp", true, "");
+        ProjectOptions.getProjectOptions().getGeneratorOptions().put("JspNavbarGenerator", generatorOptions);
+        generatorOptions.setTemplateDir(pluginDir + File.separator + generatorOptions.getTemplateDir());
+    }
+
+    private void jspOverviewOptions() {
+        GeneratorOptions generatorOptions = new GeneratorOptions(WEBAPP_DIR, "entityOverview", TEMPLATE_DIRECTORY_NAME, "{0}Overview.jsp", true, "");
+        ProjectOptions.getProjectOptions().getGeneratorOptions().put("JspOverviewGenerator", generatorOptions);
+        generatorOptions.setTemplateDir(pluginDir + File.separator + generatorOptions.getTemplateDir());
+    }
+
+    private void jspDetailsOptions() {
+        GeneratorOptions generatorOptions = new GeneratorOptions(WEBAPP_DIR, "entity_details", TEMPLATE_DIRECTORY_NAME, "{0}Details.jsp", true, "");
+        ProjectOptions.getProjectOptions().getGeneratorOptions().put("JspDetailsGenerator", generatorOptions);
+        generatorOptions.setTemplateDir(pluginDir + File.separator + generatorOptions.getTemplateDir());
+    }
+
+    private void jspFormOptions() {
+        GeneratorOptions generatorOptions = new GeneratorOptions(WEBAPP_DIR, "entity_form", TEMPLATE_DIRECTORY_NAME, "{0}Form.jsp", true, "");
+        ProjectOptions.getProjectOptions().getGeneratorOptions().put("JspFormGenerator", generatorOptions);
         generatorOptions.setTemplateDir(pluginDir + File.separator + generatorOptions.getTemplateDir());
     }
 
@@ -114,6 +145,7 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
         ProjectOptions.getProjectOptions().getGeneratorOptions().put("AppPropertiesGenerator", generatorOptions);
         generatorOptions.setTemplateDir(pluginDir + File.separator + generatorOptions.getTemplateDir());
     }
+
 
 }
 

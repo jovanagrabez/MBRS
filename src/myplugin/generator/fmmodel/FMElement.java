@@ -1,6 +1,8 @@
 package myplugin.generator.fmmodel;
 
-/** Element - abstract ancestor for all model elements */
+/**
+ * Element - abstract ancestor for all model elements
+ */
 
 public abstract class FMElement {
 	
@@ -10,17 +12,16 @@ public abstract class FMElement {
 		this.name = name;
 	}
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	public Boolean hasName() {
-		return name != null;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	
+    public Boolean hasName() {
+        return name != null;
+    }
+
 }
