@@ -1,3 +1,4 @@
+<#import "utils.ftl" as u>
 package ${class.typePackage};
 import java.util.*;
 
@@ -13,54 +14,69 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.validation.Valid;
 import uns.ftn.mbrs.service.*;
 
+import lombok.RequiredArgsConstructor;
 
 @Controller
+@RequiredArgsConstructor
 public class ${class.name?cap_first}Controller {
+    private final ${class.name?cap_first}Service ${class.name?uncap_first}Service;
 
-@Autowired
-protected ${class.name?cap_first}Service ${class.name?lower_case}Service;
+    <#list class.FMLinkedProperty as property>
+    <#if property.upper == 1>
+    private final ${property.type?cap_first}Service ${property.type?uncap_first}Service;
+    </#if>
+    </#list>
 
+    private void populateRelatedEntities(ModelMap model) {
+    <#list class.FMLinkedProperty as property>
+    <#if property.upper == 1>
+        model.put("${u.plural(property.name?uncap_first)}", ${property.type?uncap_first}Service.getAll());
+    </#if>
+    </#list>
+    }
 
+    @GetMapping("/${u.plural(class.name?lower_case)}/new/")
+    public String getNewForm(ModelMap model) {
+        model.put("${class.name?uncap_first}", new ${class.name}());
+        populateRelatedEntities(model);
 
-@RequestMapping(value = "all${class.name}", method = RequestMethod.GET)
-public String getAll${class.name}(ModelMap model) {
-model.put("all${class.name}",${class.name?lower_case}Service.getAll());
-return "${class.name?lower_case}";
-}
+        return "${class.name?uncap_first}Form";
+    }
 
-@RequestMapping(value = "/one${class.name}", method = RequestMethod.GET)
-public String getOne${class.name}(@RequestParam Integer id) {
-${class.name?lower_case}Service.getOne(id);
-return "redirect:/${class.name?lower_case}";
-}
+    @GetMapping("/${u.plural(class.name?lower_case)}/{id}/edit")
+    public String getEditForm(ModelMap model, @PathVariable Integer id) {
+        model.put("${class.name?uncap_first}", ${class.name?uncap_first}Service.getOne(id).get());
+        populateRelatedEntities(model);
 
-@RequestMapping(value = "/delete${class.name}", method = RequestMethod.GET)
-public String delete${class.name}(@RequestParam Integer id) {
-${class.name?lower_case}Service.delete(id);
-return "redirect:/${class.name?lower_case}";
-}
+        return "${class.name?uncap_first}Form";
+    }
 
-@RequestMapping(value = "/update${class.name}", method = RequestMethod.POST)
-public String update${class.name}(ModelMap model, @Valid ${class.name} ${class.name?lower_case}, BindingResult result) {
+    @RequestMapping(value = "/${u.plural(class.name?lower_case)}", method = RequestMethod.GET)
+    public String getAll(ModelMap model) {
+        model.put("${u.plural(class.name?uncap_first)}",${class.name?uncap_first}Service.getAll());
+        return "${class.name?uncap_first}Overview";
+    }
 
-if (result.hasErrors()) {
-return "${class.name?lower_case}";
-}
-${class.name?lower_case}Service.update(${class.name?lower_case});
-return "redirect:/${class.name?lower_case}";
-}
+    @RequestMapping(value = "/${u.plural(class.name?lower_case)}/{id}", method = RequestMethod.GET)
+    public String getOne(ModelMap model, @PathVariable Integer id) {
+        model.put("${class.name?uncap_first}", ${class.name?uncap_first}Service.getOne(id).get());
+        return "${class.name?uncap_first}Details";
+    }
 
+    @RequestMapping(value = "/${u.plural(class.name?lower_case)}/{id}/delete", method = RequestMethod.GET)
+    public String delete(@PathVariable Integer id) {
+        ${class.name?uncap_first}Service.delete(id);
+        return "redirect:/${u.plural(class.name?lower_case)}";
+    }
 
-@RequestMapping(value = "/create${class.name}", method = RequestMethod.POST)
-public String create${class.name}(ModelMap model, @Valid ${class.name} ${class.name?lower_case}, BindingResult result) {
-
-if (result.hasErrors()) {
-return "todo";
-}
-
-${class.name?lower_case}Service.create(${class.name?lower_case});
-return "redirect:/${class.name?lower_case}";
-}
+    @RequestMapping(value = "/${u.plural(class.name?lower_case)}", method = RequestMethod.POST)
+    public String update${class.name}(ModelMap model, @Valid ${class.name} ${class.name?lower_case}, BindingResult result) {
+        if (result.hasErrors()) {
+            return "${class.name?uncap_first}";
+        }
+        ${class.name?uncap_first}Service.update(${class.name?lower_case});
+        return "redirect:/${u.plural(class.name?lower_case)}";
+    }
 
 }
 

@@ -38,25 +38,24 @@ class GenerateAction extends MDAction {
         }
 
         try {
-//            generateModel(root);
-//            generateController(root);
-//            generateService(root);
-//            generateGrpcService(root);
-//            generateServiceImpl(root);
-//            generateMain(root);
+            generateModel(root);
+            generateController(root);
+            generateService(root);
+            generateGrpcService(root);
+            generateServiceImpl(root);
+            generateMain(root);
             generateJspDetails(root);
             generateJspNavbar(root);
             generateJspForm(root);
-//            generateJspOverview(root);
-//            generateRepository(root);
-//            generateRepository(root);
-//            generatePom(root);
-//            generateAppProperties(root);
-//
-//            generateProto(root);
+            generateJspOverview(root);
+            generateRepository(root);
+            generatePom(root);
+            generateAppProperties(root);
+
+            generateProto(root);
 
             JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: c:/mbrs");
-//            exportToXml();
+            exportToXml();
         } catch (AnalyzeException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }

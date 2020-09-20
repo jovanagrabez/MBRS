@@ -18,7 +18,7 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
     private static final String SOURCE_MAIN = "c:/mbrs/src/main";
     private static final String GEN_DIR = SOURCE_MAIN + "/java";
     private static final String RESOURCE_DIR = SOURCE_MAIN + "/resources";
-    private static final String WEBAPP_DIR = SOURCE_MAIN + "/webapp";
+    private static final String WEBAPP_DIR = SOURCE_MAIN;
     public static final String PROTO_DIR = "c:/mbrs/src/main/proto";
     public static final String DirName = "c:/mbrs/src/main/resources";
 

@@ -42,10 +42,8 @@
                 </#list>
             </div>
         </div>
-        <a href="<c:url value="/${class_name}/edit?id=${class_name_id}"/>" class="btn btn-sm btn-outline-primary
-        mt-4">Edit</a>
-        <a href="<c:url value="/${class_name}/delete?id=${class_name_id}"/>" class="btn btn-sm btn-outline-danger
-        mt-4">Delete</a>
+        <a class="btn btn-sm btn-primary" href="<c:url value="/${u.plural(class_name?lower_case)}/${class_name_id}/edit"/>">Edit</a>
+        <a class="btn btn-sm btn-danger" href="<c:url value="/${u.plural(class_name?lower_case)}/${class_name_id}/delete"/>">Delete</a>
     </div>
 </div>
 </body>
