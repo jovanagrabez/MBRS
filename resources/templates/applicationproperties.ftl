@@ -25,5 +25,7 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.H2Dialect
+  main:
+    allow-bean-definition-overriding: true
 grpc:
   port: 6565

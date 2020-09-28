@@ -46,7 +46,7 @@
                         <label for="${u.plural(property.name?uncap_first)}">${u.plural(property.name?cap_first)}</label>
                         <form:select path="${property.name}.id">
                             <c:forEach var="item" items="${r"${"} ${u.plural(property.name?uncap_first)} ${"}"}">
-                                <option value="${r"${"} item.id ${"}"}" ${r"${"} ${class_name?uncap_first}.${property.name}.id == item.id ? 'selected' : '' ${"}"}>${r"${"} item.id ${"}"}</option>
+                                <option value="${r"${"} item.id ${"}"}" ${r"${"} ${class_name?uncap_first}.${property.name}.id == item.id ? 'selected' : '' ${"}"}>${r"${"} item.displayName ${"}"}</option>
                             </c:forEach>
                         </form:select>
                     </div>

@@ -129,6 +129,8 @@ public class ModelAnalyzer {
         Integer precision = null;
         Boolean unique = null;
         Integer length = null;
+        Boolean display = false;
+
         if (persistentStereotype != null) {
             List<Property> tags = persistentStereotype.getOwnedAttribute();
             for (int j = 0; j < tags.size(); ++j) {
@@ -149,6 +151,9 @@ public class ModelAnalyzer {
                         case "length":
                             length = (Integer) value.get(0);
                             break;
+                        case "display":
+                            display = (Boolean) value.get(0);
+                            break;
                     }
                 }
             }
@@ -157,6 +162,7 @@ public class ModelAnalyzer {
 
         FMProperty prop = new FMProperty(property.getAttName(), property.getTypeName(), p.getVisibility().toString(), columnName, length, unique, precision,
                 property.getLower(), property.getUpper());
+        prop.setDisplay(display);
         return prop;
     }
 

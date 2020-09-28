@@ -24,7 +24,7 @@ public class GeneratorHandler extends BasicGenerator{
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
         List<FMClass> classes = FMModel.getInstance().getClasses();
-        for (int i = 0; i < classes.size(); i++) {
+            for (int i = 0; i < classes.size(); i++) {
             FMClass cl = classes.get(i);
             Writer out;
             Map<String, Object> context = new HashMap<String, Object>();

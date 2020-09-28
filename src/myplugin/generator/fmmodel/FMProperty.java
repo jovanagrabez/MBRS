@@ -15,6 +15,7 @@ public class FMProperty extends FMElement {
     private IdentificationType generatedValue;
     private Boolean unique;
     private Integer precision;
+    private Boolean display;
 
 
     /**
@@ -104,5 +105,13 @@ public class FMProperty extends FMElement {
 
     public void setUpper(Integer upper) {
         this.upper = upper;
+    }
+
+    public Boolean getDisplay() {
+        return display;
+    }
+
+    public void setDisplay(Boolean display) {
+        this.display = display;
     }
 }

@@ -132,4 +132,16 @@ ${class.visibility} class ${class.name} {
     }
 </#list>
 
+    public String getDisplayName() {
+        String displayName = "";
+        <#list properties as property>
+        <#if property.display>
+        displayName += ${property.name}.toString() + " ";
+        </#if>
+        </#list>
+        if(displayName.isEmpty()) displayName = id.toString();
+
+        return displayName;
+    }
+
 }
